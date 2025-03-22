@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src = "/jquery-3.7.1.js"></script>
+    <script src = "/personal.js"></script>
+    <title>Friedrich_Merz11002735</title>
+
+    <style>
+        .comment{ color: grey; font-style: italic;}
+        .portrait{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        border: 1px solid #ccc;
+        padding:10px;
+        overflow:hidden;
+        }
+        .inbox{text-align:center; line-height:100px;}
+        img{
+        max-width: 100%;
+        height: auto;
+        }
+
+        .ne-per { background-color: lightblue; padding: 2px; border-radius: 4px; }
+        .ne-loc { background-color: lightgreen; padding: 2px; border-radius: 4px; }
+        .ne-org { background-color: lightcoral; padding: 2px; border-radius: 4px; }
+        .ne-misc { background-color: DarkKhaki; padding: 2px; border-radius: 4px; }
+
+        .pos-nn { background-color: yellow; padding: 2px; border-radius: 4px; }
+        .pos-vb { background-color: orange; padding: 2px; border-radius: 4px; }
+        .pos-appr { background-color: pink; padding: 2px; border-radius: 4px; }
+        .pos-art { background-color: red; padding: 2px; border-radius: 4px; }
+
+        .pos-adjd { background-color: DodgerBlue; padding: 2px; border-radius: 4px; }
+        .pos-adja { background-color: green; padding: 2px; border-radius: 4px; }
+        .pos-pper { background-color: violet; padding: 2px; border-radius: 4px; }
+        .pos-adv { background-color: grey; padding: 2px; border-radius: 4px; }
+
+
+        .legend {
+            margin: 10px 0;
+            padding: 5px;
+            display: flex;
+            gap: 10px;
+            border: 1px solid #000;
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+<div class = "portrait">
+        <h1> Portrait: </h1>
+        <img src=https://bilddatenbank.bundestag.de/fotos/file7n0mqdnbxfk2ohqi11f.jpg width="200" height="230">
+        </br>
+        <p> ID: 11002735</br>
+Friedrich Merz
+, männlich</br>
+Geburtsdatum: 11.11.1955 </br> 
+Geburtsort : Deutschland </br>
+Beruf: Rechtsanwalt</br>
+Partei: CDU</br>
+Religion: römisch-katholisch</br>
+WP von 13 bis 20</br> </p>
+
+
+</div>
+
+
+    <h2><a href = "/">Go To Homepage</a></h2>
+    <div class = "verzeichnis" id = "verzeichnis">
+        <h1> Table of speeches </h1>
+
+
+       <form id="speechForm" action="/nlp-analysis" method="GET" onsubmit="checkSelections()">
+           <ul>
+
+                <li>
+                <input type="checkbox" name="speechIDs" value="ID2021200200">
+                <input type="hidden" name="speakerName" value="Friedrich_Merz">
+
+                <a href="#ID2021200200">Rede ID:ID2021200200, Datum: 11.02.2025</a>
+                </li>
+
+            <br>
+
+            <div>
+                <a href="/profiles/Friedrich_Merz?page=9&size=4"
+                   >Previous Page</a>
+                <a href="/profiles/Friedrich_Merz?page=11&size=4">Next Page</a>
+            </div>
+
+           </ul>
+               <label for="topic">Topic:</label>
+               <select name="topic" id="topic">
+                   <option value="none">  </option>
+                   <option value="Social">Social </option>
+                   <option value="Foreign">Foreign</option>
+                   <option value="Law">Law</option>
+                   <option value="Government">Government </option>
+                   <option value="Health">Health</option>
+                   <option value="Transportation">Transportation</option>
+                   <option value="Public">Public</option>
+                   <option value="Labor">Labor</option>
+                   <option value="Housing">Housing</option>
+                   <option value="Defense">Defense</option>
+                   <option value="Civil">Civil</option>
+                   <option value="Energy Technology">Energy</option>
+                   <option value="Technology">Technology </option>
+                   <option value="Education">Education</option>
+                   <option value="Domestic">Domestic</option>
+                   <option value="Immigration">Immigration</option>
+                   <option value="Environment">Environment </option>
+                   <option value="Agriculture">Agriculture</option>
+                   <option value="Macroeconomics">Macroeconomics</option>
+                   <option value="Culture">Culture</option>
+                   <option value="International">International</option>
+               </select>
+
+               <button type="submit">NLP analyse</button>
+           </form>
+
+       <script>
+            const speechWithTopicScore = {"ID2021200200":{"Social":5.334187763217415,"Foreign":0.7098661867967166,"Law":7.2686514972374425,"Government":162.79580441803773,"Health":1.2520320812614045,"Transportation":2.032488227144313,"Public":0.6353408783725172,"Labor":7.678078158730386,"Housing":1.8806444472738804,"Defense":3.902637496218631,"Civil":27.14711737257221,"Energy":0.9354873571701319,"Technology":4.4035510540529685,"Education":1.2434684581439797,"Domestic":12.475696397019874,"Immigration":13.137376437764942,"Environment":3.401778639154145,"Agriculture":0.44313043245347217,"Macroeconomics":25.457810522455475,"Culture":2.2848873873999764,"International":9.579968612373705}};
+
+            console.log(speechWithTopicScore)
+
+           function checkSelections() {
+               const checkboxes = document.querySelectorAll('input[name="speechIDs"]');
+                const selectedTopic = document.querySelector('#topic').value;  // Get selected topic
+
+                let anySelected = false; // To check later if users select any speech
+
+                // Empty all selections before next selection
+                if(selectedTopic !== "none"){
+                    checkboxes.forEach(cb => cb.checked = false);
+                }
+
+                // Check if speech exists and the speech has selected topic with scores greater than 1.0
+                if (selectedTopic === "none"){
+                    // If "none" is selected, then do not filter topics
+                    checkboxes.forEach(cb => {
+                        // If the checkbox is already checked, mark it as selected
+                        if (cb.checked) {
+                            anySelected = true;
+                        }
+                    });
+                }
+                 else{
+                    checkboxes.forEach(cb => {
+                        const speechID = cb.value;
+                         if(speechWithTopicScore[speechID] && speechWithTopicScore[speechID][selectedTopic] > 1 && speechWithTopicScore[speechID][selectedTopic] !== undefined) {
+                            cb.checked = true;
+                            anySelected = true;
+                        }
+                    });
+
+                }
+               if (!anySelected) {
+                   // If nothing were selected, select all as default
+                   checkboxes.forEach(cb => cb.checked = true);
+               }
+
+           }
+       </script>
+       </div>
+
+<br>
+
+
+<div class="legend">
+    <span class="ne-per">Person</span>
+    <span class="ne-loc">Location</span>
+    <span class="ne-org">Organization</span>
+    <span class="ne-misc">Miscellaneous</span>
+
+    <span class="pos-nn">Noun</span>
+    <span class="pos-vb">Verb</span>
+    <span class="pos-appr">Präposition</span>
+    <span class="pos-art">Artikel</span>
+    <span class="pos-adjd">Adjektiv (dativ)</span>
+    <span class="pos-adja">Adjektiv (attributiv)</span>
+    <span class="pos-pper">Personalpronomen</span>
+    <span class="pos-adv">Adverb</span>
+</div>
+
+<label>
+    <input type="checkbox" id="toggleNE" > Show Named Entities
+</label>
+<label>
+    <input type="checkbox" id="togglePOS" > Show POS Tags
+</label>
+
+<br>
+
+
+<div id="speechContainer">
+
+            <div class = "content" id = "ID2021200200">
+
+                <h2>Speech: ID2021200200</h2>
+                    <video id="video-ID2021200200" width="640" height="360" controls>
+                        <source src="/videosLowProfile/Merz_Friedrich.mp4" type="video/mp4">
+                    </video>
+
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 100px; height: 30px; background: linear-gradient(to right, white, red); margin-right: 10px;"></div>
+                        <span>negative</span>
+                    </div>
+
+                    <div style="display: flex; align-items: center; margin-top: 20px;">
+                        <div style="width: 100px; height: 30px; background: linear-gradient(to right, white, green); margin-right: 10px;"></div>
+                        <span>positive</span>
+                    </div>
+
+                    <div id="subtitle" style="margin-top: 10px; font-size: 18px;"></div>
+                    <script>
+                        // Get element from <video id...>
+                        const video = document.getElementById("video-ID2021200200");
+                        console.log(video);
+                        // Get element from <source src...>
+                        const subtitle = document.getElementById('subtitle');
+
+                        // Get video annotation
+                        const segments = [{"sentiment":0,"end":13.631,"text":"Frau Präsidentin!","begin":11.189},{"sentiment":0.7177,"end":17.494,"text":"Liebe Kolleginnen und Kollegen!","begin":13.671},{"sentiment":0,"end":31.625,"text":"Was war das denn?","begin":17.554},{"sentiment":-0.3818,"end":38.391,"text":"Minuten abgelesene Empörung über den Oppositionsführer.","begin":31.665},{"sentiment":0.8221,"end":43.068,"text":"Herzlichen Glückwunsch, Herr Bundeskanzler!","begin":40.021},{"sentiment":0.0772,"end":47.419,"text":"Sie verwechseln den Plenarsaal des Deutschen Bundestages offensichtlich mit einem Juso-Bundeskongress.","begin":43.109},{"sentiment":0,"end":63.19,"text":"wollen Sie uns allen Ernstes diese halbe Stunde hier heute Morgen zumuten als eine Abschlussbilanz Ihrer dreijährigen Amtszeit als Bundeskanzler der Bundesrepublik Deutschland?","begin":51.244},{"sentiment":0.1531,"end":73.755,"text":"Ist das allen Ernstes das, was Sie sozusagen zum Abschluss dieser drei Jahre hier vortragen und anschließend den Bürgerinnen und Bürgern in Deutschland zur Fortsetzung anbieten?","begin":63.23},{"sentiment":0.4767,"end":78.497,"text":"Wissen Sie, wie Sie mir vorkommen, Sie beide, Herr Habeck und Herr Scholz, wie zwei angestellte Geschäftsführer?","begin":73.775},{"sentiment":-0.5423,"end":86.904,"text":"die das Unternehmen vor die Wand gefahren haben, anschließend zu den Eigentümern gehen und sagen, wir würden das jetzt gerne noch mal vier Jahre so weitermachen.","begin":79.137},{"sentiment":0,"end":93.591,"text":"So kommen Sie mir vor.","begin":86.945},{"sentiment":0.4767,"end":103.26,"text":"Wissen Sie, was im normalen Leben bei Ihnen Jahrzehnte her ist, dass Sie es kennengelernt haben?","begin":95.893},{"sentiment":0.7579,"end":110.178,"text":"Aber wissen Sie, was im normalen Leben die Eigentümer sagen würden, wenn die aus dem Lachen wieder herausgekommen sind?","begin":104.256},{"sentiment":0.4588,"end":115.12,"text":"Die Eigentümer würden Sie freundlich bitten, das Unternehmen zu verlassen.","begin":110.198},{"sentiment":0,"end":119.442,"text":"So wäre es im normalen Leben, Herr Bundeskanzler, und er habe.","begin":115.16},{"sentiment":-0.1531,"end":128.285,"text":"Aber wenn Sie es nicht tun, dann will ich es versuchen zu tun, einmal eine kurze Bilanz dieser drei Jahre zu ziehen.","begin":119.482},{"sentiment":-0.7657,"end":142.49,"text":"Herr Bundeskanzler, ich weiß, dass Ihnen das nicht gefällt, aber ich beginne trotzdem mit dem Februar dem Datum, an dem der Krieg Russlands gegen die Ukraine begonnen hat.","begin":128.305},{"sentiment":0,"end":150.976,"text":"Drei Tage später haben Sie von dieser Stelle aus eine in der ganzen Welt, auch in Deutschland, viel beachtete Regierungserklärung abgegeben zu den Konsequenzen, die sich daraus ergeben.","begin":142.51},{"sentiment":0,"end":153.458,"text":"Zeitenwende haben Sie das genannt.","begin":151.017},{"sentiment":-0.6705,"end":161.064,"text":"Heute, fast drei Jahre später, nach dem Beginn dieses Krieges, muss man feststellen, es sind Zeiten ohne Wende geblieben, Herr Bundeskanzler.","begin":153.478},{"sentiment":0.3182,"end":187.051,"text":"Das Einzige, was davon übrig geblieben ist, Das Einzige, was übrig geblieben ist, ist ein Sondervermögen für die Bundeswehr in Höhe von Milliarden Euro, das in zwei Jahren aufgebraucht sein wird, und Ihre Zusage, die Sie von dieser Stelle aus am Februar gegeben haben, nämlich Milliarden Euro Sondervermögen und ab sofort mindestens Prozent in die Zukunft der Bundeswehr zu investieren.","begin":161.104},{"sentiment":0.1027,"end":189.632,"text":"Dieses Versprechen bleiben Sie bis heute schuldig, Herr Bundeskanzler.","begin":187.091},{"sentiment":0.5423,"end":196.598,"text":"und überlassen es großzügig Ihrem Nachfolger.","begin":191.293},{"sentiment":0.4939,"end":207.727,"text":"Sie haben schon damals die Chance nicht genutzt, Ihren schon zu diesem Zeitpunkt überholten Koalitionsvertrag auf die Seite zu legen und die Prioritäten in Ihrer Regierung neu zu ordnen.","begin":196.618},{"sentiment":0,"end":210.709,"text":"Das haben Sie damals schon versorgt.","begin":207.767},{"sentiment":0,"end":212.791,"text":"Dann kam die zweite tiefe Zäsur.","begin":210.729},{"begin":212.811,"end":224.951,"text":"Das war die Entscheidung des Bundesverfassungsgerichts vom November Ein 60-Millionen-Euro-Kredit aus den Entschuldigung, vielen Dank."},{"sentiment":0.4767,"end":228.296,"text":"Es ist ja ganz liebenswürdig, dass Sie so zuhören.","begin":224.991},{"sentiment":0,"end":230.44,"text":"Es war ja nur mal der Versuch, ob Sie alle wach sind heute Morgen.","begin":228.316},{"sentiment":0,"end":245.896,"text":"Eine 60-Milliarden-Euro-Kreditermächtigung für die Coronahilfen haben Sie versucht, mit einer üblen Trickserei in den Klima- und Transformationsfonds zu übertragen.","begin":235.488},{"sentiment":0.1779,"end":256.645,"text":"Das Bundesverfassungsgericht hat einmalig in der Geschichte der Haushaltsrechtsprechung des Bundesverfassungsgerichts diese Transaktion von Anfang an unwirksam für nichtig erklärt.","begin":245.916},{"sentiment":-0.4003,"end":260.689,"text":"Ein komplettes Desaster in Ihrer Haushaltsführung!","begin":256.685},{"sentiment":-0.7394,"end":278.199,"text":"Und der Herr Vizekanzler hat in diesem Zusammenhang nichts Besseres zu tun, als den Oppositionsführer dafür zu beschimpfen, dass er nach Karlsruhe gegangen ist, anstatt mal zu sagen, wir haben hier einen schweren Fehler gemacht, wird die Opposition dafür beschimpft, dass wir den Weg nach Karlsruhe gegangen sind.","begin":261.892},{"sentiment":0.5267,"end":284.062,"text":"Das ist die Art und Weise des Umgangs, die wir von Ihnen nach dem November gesehen haben.","begin":278.239},{"sentiment":0.3818,"end":302.881,"text":"Nun, meine Damen und Herren, diese Entscheidung wäre nun die letzte Gelegenheit gewesen, die Korrektur Ihres Kurses vorzunehmen, noch einmal den Koalitionsvertrag wirklich in der untersten Schublade verschwinden zu lassen und es mal neu zu versuchen mit einer Koalition, die von Anfang an nicht zusammengepasst hat.","begin":284.802},{"sentiment":0,"end":304.502,"text":"Aber was machen Sie?","begin":303.241},{"sentiment":-0.7906,"end":320.892,"text":"Von diesem Tag an, einen täglichen, ununterbrochenen Streit in Ihrer Koalition, jeden Tag zwischen SPD, Grünen und FDP, bis dann schließlich am November des letzten Jahres, nach fast einem Jahr des ewigen Streites, diese Koalition auseinandergebrochen ist.","begin":304.522},{"sentiment":-0.4019,"end":326.414,"text":"Sie haben in den letzten Tagen ein paar Mal gesagt, Sie hätten die FDP schon früher entlassen sollen.","begin":320.912},{"sentiment":0,"end":330.076,"text":"Ja, die FDP hätte vielleicht auch etwas früher gehen sollen.","begin":326.454},{"sentiment":0,"end":335.277,"text":"Aber dieses eine Jahr spätestens, das hätten Sie uns allen ersparen müssen, Herr Bundeskanzler.","begin":330.116},{"sentiment":0,"end":339.719,"text":"Es ist ein weiteres verlorenes Jahr für Deutschland gewesen.","begin":335.317},{"sentiment":0,"end":347.426,"text":"Wie sieht jetzt heute Ihre Bilanz aus?","begin":344.025},{"sentiment":0,"end":348.907,"text":"Kein Wort von dieser Stelle.","begin":347.447},{"sentiment":-0.1531,"end":352.849,"text":"Aber deswegen will ich es dann wenigstens einmal kurz darstellen.","begin":348.927},{"sentiment":-0.4256,"end":360.192,"text":"Sie verlassen das Regierungsamt, das Bundeskanzleramt, mit fast Millionen Arbeitslosen in Deutschland.","begin":352.889},{"sentiment":0,"end":362.193,"text":"Kein Wort von dieser Stelle dazu.","begin":360.212},{"sentiment":-0.4228,"end":366.575,"text":"Fast Arbeitslose mehr als zum Beginn Ihrer Amtszeit.","begin":362.233},{"sentiment":-0.3612,"end":372.497,"text":"Herr Bundeskanzler, das sind Familien, das sind Menschen, die ihren Arbeitsplatz verloren haben.","begin":366.615},{"sentiment":-0.4256,"end":377.585,"text":"kein Wort von Ihnen dazu, fast Millionen Arbeitslose.","begin":373.138},{"sentiment":0,"end":383.154,"text":"Ich hätte es nicht erwartet, dass das angesichts unserer Arbeitsmarktsituation so eintritt, wie es eintritt.","begin":377.625},{"sentiment":-0.7096,"end":386.56,"text":"Es ist ein schieres Desaster, was Sie auf dem Arbeitsmarkt hinterlassen.","begin":383.214},{"sentiment":0,"end":401.791,"text":"Unternehmensinsolvenzen in den drei Jahren Ihrer Amtszeit, davon fast die Hälfte im letzten Jahr.","begin":395.147},{"sentiment":0.4215,"end":408.275,"text":"Kein Wort von Ihnen dazu, was das für die Unternehmen bedeutet, was das für die Arbeitsplätze in Deutschland bedeutet.","begin":401.811},{"sentiment":0,"end":414.299,"text":"Ein Kapitalabfluss aus Deutschland in der Größenordnung von rund Milliarden Euro im Jahr.","begin":408.315},{"sentiment":0,"end":418.864,"text":"Sie reden hier von einem Deutschlandfonds, Herr Bundeskanzler.","begin":414.959},{"sentiment":0.3818,"end":425.871,"text":"Das Geld, das wir für die Investitionen in Deutschland brauchen, fließt mittlerweile regelmäßig ab, verlässt dieses Land.","begin":418.884},{"sentiment":0.25,"end":431.557,"text":"Hier findet eine Abstimmung mit den Füßen gegen Ihre Regierungspolitik statt, Herr Bundeskanzler.","begin":425.911},{"sentiment":-0.1685,"end":435.582,"text":"Sie nehmen offensichtlich die Wirklichkeit überhaupt nicht mehr wahr.","begin":431.597},{"sentiment":0,"end":444.22,"text":"Unser Land, die Volkswirtschaft der Bundesrepublik Deutschland, ist mittlerweile Schlusslicht in der Europäischen Union.","begin":439.076},{"sentiment":0,"end":446.542,"text":"Wir liegen auf dem letzten Platz.","begin":444.24},{"sentiment":-0.4019,"end":450.225,"text":"Wir schrumpfen im dritten Jahr in Folge Rezession.","begin":446.582},{"sentiment":0,"end":454.488,"text":"Das hat es bis jetzt in der Nachkriegsgeschichte in Deutschland nicht ein einziges Mal gegeben.","begin":450.245},{"sentiment":0,"end":456.27,"text":"Einmal hatten wir zwei Jahre.","begin":454.528},{"sentiment":0,"end":458.671,"text":"Da gab es einen Amtsvorgänger, der hieß Gerhard Schröder.","begin":456.29},{"sentiment":0,"end":461.253,"text":"Er hat eine Agenda auf den Weg gebracht.","begin":458.711},{"sentiment":-0.5267,"end":464.136,"text":"Danach haben wir wieder die Krise im Griff gehabt.","begin":461.273},{"sentiment":0.4939,"end":467.558,"text":"Arbeitsplätze gesehen, wir haben Wachstum gesehen in Deutschland.","begin":465.016},{"sentiment":0,"end":469.08,"text":"Nichts dergleichen von Ihnen.","begin":467.618},{"sentiment":0,"end":472.963,"text":"Im Gegenteil, Sie wollen dasselbe so weitermachen wie in den letzten Jahren.","begin":469.12},{"sentiment":-0.5994,"end":476.866,"text":"Es ist eine ernsthafte Bedrohung, was Sie heute Morgen hier zu diesem Thema gesagt haben.","begin":473.003},{"sentiment":0,"end":488.522,"text":"Sie haben das Migrationsproblem angesprochen, Herr Bundeskanzler.","begin":484.341},{"sentiment":-0.2732,"end":499.425,"text":"zusätzliche Asylbewerber in Deutschland in Ihrer Amtszeit, die nach Deutschland gekommen sind und hier mittlerweile ein unlösbares Problem auf der kommunalen Ebene geschaffen haben.","begin":489.462},{"sentiment":0.34,"end":510.628,"text":"Aber statt konkret zu sagen, wie Sie es jetzt wirklich anders machen wollen, beschimpfen Sie in Ihrer Regierungserklärung vor zwei Wochen von dieser Stelle aus die Bayerische Staatsbewaltung, dass sie nicht in der Lage sei, das Problem zu lösen.","begin":499.465},{"sentiment":0,"end":514.409,"text":"Das ist einfach unanständig, was Sie hier machen.","begin":510.968},{"sentiment":0,"end":517.471,"text":"Es sind immer nur die anderen.","begin":514.45},{"sentiment":0.5315,"end":535.858,"text":"Was wir von Ihnen hier hören, auch am Sonntagabend, ist, dass Sie sagen, Sie haben alles richtig gemacht, nur alle anderen haben die Klugheit und die Intelligenz dieses Bundeskanzlers noch nicht verstanden und hinken hinterher und sind nicht in der Lage, die Probleme zu erfassen.","begin":517.511},{"sentiment":0,"end":539.44,"text":"Herr Bundeskanzler, das nimmt Ihnen in Deutschland niemand.","begin":535.898},{"sentiment":0,"end":546.162,"text":"Das nimmt Ihnen niemand mehr ab.","begin":539.48},{"sentiment":0.5994,"end":555.726,"text":"Erlauben Sie mir einen Hinweis auf die Probleme der inneren Sicherheit in Deutschland, die weitgehend unbeobachtet und unbeachtet von der Öffentlichkeit geblieben sind.","begin":546.202},{"sentiment":-0.5719,"end":570.112,"text":"Aber wir haben im Jahr die Zahlen gibt es noch nicht, deswegen trage ich sie aus dem Jahr vor fast Verfahren zu Kinder- und Jugendpornografie und Gewalt gegen Kinder.","begin":555.746},{"sentiment":0.4215,"end":587.606,"text":"mussten endgültig eingestellt werden, weil Sie in Ihrer Koalition es nicht hinbekommen haben, die vom Europäischen Gerichtshof längst für zulässig erachtete Speicherung von IP-Adressen zu den deutschen Ermittlungsverfahren hinzuzufügen und zu erlauben.","begin":571.42},{"sentiment":-0.5883,"end":596.85,"text":"Herr Bundeskanzler, es ist eine Schande, dass dies mit der FDP, mit den Grünen und mit der AfD hier im Deutschen Bundestag nicht möglich wurde.","begin":587.626},{"sentiment":0.7906,"end":607.335,"text":"Wenn Sie in der SPD-Fraktion den Mut gehabt hätten, wenn Sie den Mut gehabt hätten, sich aus der Umklammerung der Grünen und der FDP herauszulösen.","begin":596.87},{"sentiment":0,"end":611.298,"text":"Mit uns hätten Sie ein solches Gesetz hier längst machen können in Deutschland.","begin":607.375},{"sentiment":0,"end":613.519,"text":"Wir hätten die Speicherung der IP-Adressen.","begin":611.338},{"sentiment":0,"end":624.907,"text":"Sie wäre möglich, und es wäre viel, viel Leid erspart geblieben, wenn wir endlich diese Möglichkeit in Deutschland auch hätten, die Sie in dieser Koalition nicht zusammenbekommen haben.","begin":613.559},{"sentiment":0,"end":633.727,"text":"Lassen Sie mich noch ein abschließendes Wort zu Europa sagen.","begin":630.123},{"sentiment":0,"end":638.071,"text":"Herr Bundeskanzler, es ist ja geradezu ein Treppenwitz, was Sie hier vortragen.","begin":633.747},{"sentiment":-0.4572,"end":645.318,"text":"Diese Bundesregierung ist so nachlässig im Umgang mit Europa gewesen wie keine vorher.","begin":638.111},{"sentiment":0,"end":647.12,"text":"Haben Sie mal das Wort.","begin":645.358},{"sentiment":0,"end":652.624,"text":"Haben Sie mal das Wort German Vote gehört?","begin":648.582},{"sentiment":0.4215,"end":670.191,"text":"Das war das Chiffre in Brüssel für die ständigen Enthaltungen der Bundesregierung, der Bundesrepublik Deutschland in den Ministerräten und im Europäischen Rat, weil sie in ihrer Koalition so zerstritten waren, dass sie in der Regel nicht gewusst haben, wie sie denn in Brüssel eigentlich abstimmen sollen.","begin":652.664},{"sentiment":-0.6549,"end":679.516,"text":"Es hat noch nie eine deutsche Bundesregierung so viel Kritik und so viel Verachtung in Brüssel wie diese gegenwärtige Bundesregierung.","begin":670.231},{"sentiment":-0.1779,"end":683.78,"text":"Auch aus diesem Grunde wird es Zeit, dass Sie aufhören.","begin":679.536},{"sentiment":0,"end":691.887,"text":"Jetzt lassen Sie mich zu dieser angeblichen Europarechtswidrigkeit und Verfassungswidrigkeit unserer Vorschläge noch einmal etwas sagen.","begin":684.681},{"sentiment":0,"end":697.633,"text":"Herr Bundeskanzler, Sie leben ja in Brandenburg in der Stadt Potsdam.","begin":692.688},{"sentiment":0,"end":702.558,"text":"Das ist die Landeshauptstadt von Brandenburg, in der Sie leben.","begin":697.673},{"sentiment":0.0258,"end":715.19,"text":"Der Ministerpräsident dort hat einen Koalitionsvertrag abgeschlossen und hat noch im September des letzten Jahres mit allen Landräten zusammen einen Aufruf verfasst, wie mit dem Thema Asyl und Grenzkontrollen umgegangen werden soll.","begin":702.598},{"sentiment":0,"end":716.931,"text":"Ich lese Ihnen wörtlich vor.","begin":715.21},{"sentiment":0.4588,"end":726.939,"text":"Gemäß Artikel 16a des Grundgesetzes haben Asylsuchende, die aus sicheren Drittstaaten einreisen, keinen Anspruch auf ein Asylverfahren in der Bundesrepublik Deutschland.","begin":716.971},{"sentiment":0,"end":731.443,"text":"Sie müssen bereits an der Grenze von der Bundespolizei zurückgewiesen werden.","begin":726.979},{"sentiment":-0.34,"end":732.603,"text":"Ende des Zitats.","begin":731.483},{"sentiment":0,"end":736.987,"text":"Dietmar Woidke, SPD-geführte Landesregierung in Brandenburg.","begin":732.643},{"sentiment":-0.4023,"end":739.369,"text":"Herr Bundeskanzler, uns müssen Sie es ja nicht glauben.","begin":737.007},{"sentiment":0.1779,"end":749.893,"text":"Aber Ihrem eigenen Ministerpräsidenten sollten Sie es vielleicht glauben, oder wird es erst dann verfassungswidrig, wenn wir es vorschlagen, und bleibt verfassungskonform, wenn es aus Ihren eigenen Reihen vorgeschlagen wird?","begin":740.149},{"sentiment":-0.4199,"end":754.375,"text":"Das ist doch geradezu lächerlich, was Sie hier für ein Schauspiel aufführen!","begin":749.913},{"sentiment":0.3182,"end":765.033,"text":"Meine Damen und Herren, die Migrationspolitik erfordert eine klare Antwort.","begin":760.848},{"sentiment":0,"end":766.935,"text":"Wir haben sie versucht zu geben.","begin":765.053},{"sentiment":0.5994,"end":781.334,"text":"Wir haben in der vorletzten Woche hier einen Gesetzentwurf zur Abstimmung gebracht, bei dem wir lange, vier Stunden lang auch um die Zustimmung der Sozialdemokraten und der Grünen geworben haben.","begin":766.955},{"sentiment":0,"end":784.455,"text":"Ich will noch einmal zusammenfassen, was wir dort vorgeschlagen haben.","begin":781.374},{"sentiment":-0.34,"end":792.357,"text":"Wir haben vorgeschlagen, das Wort Begrenzung wieder in das Aufenthaltsgesetz einzuführen.","begin":784.495},{"sentiment":-0.6065,"end":797.703,"text":"Ich weiß gar nicht, warum Sie Wissen Sie, das stand bis Ende in diesem Gesetz.","begin":792.457},{"sentiment":0,"end":801.609,"text":"Warum regen Sie sich eigentlich so auf, wenn ich den Vorschlag mache, das da wieder aufzunehmen?","begin":797.723},{"sentiment":0,"end":804.613,"text":"Das ist doch das Normalste von der Welt, dass man das wieder schreibt.","begin":801.629},{"sentiment":-0.2732,"end":809.513,"text":"Wir haben vorgeschlagen, den Familiennachzug zu begrenzen.","begin":806.892},{"sentiment":0,"end":821.256,"text":"Herr Bundeskanzler, zur Erinnerung das hatten wir schon einmal in einer gemeinsamen Koalition zwischen und Warum ist das, was wir mal gemeinsam verabredet hatten, heute verfassungswidrig?","begin":809.533},{"sentiment":0.6124,"end":825.097,"text":"Und schließlich letztendlich, wir wollten die Kompetenzen der Bundespolizei ausweiten.","begin":821.296},{"sentiment":0,"end":827.818,"text":"Das steht an drei verschiedenen Stellen in Ihrem Wahlprogramm.","begin":825.137},{"sentiment":-0.4795,"end":831.419,"text":"Was ist eigentlich so schwierig daran, diesem Gesetzentwurf zuzustimmen?","begin":827.858},{"sentiment":-0.4795,"end":835.84,"text":"Was war daran eigentlich so schwierig, meine Damen und Herren von der SPD-Fraktion?","begin":831.459},{"sentiment":-0.21,"end":847.327,"text":"Ja, dass die Grünen dem nicht zustimmen, das kann ich sogar verstehen, wenn Sie eine Woche vorher auf Ihrem Bundesparteitag noch beschließen, den Familiennachzug auszuweiten.","begin":836.62},{"sentiment":0.128,"end":853.511,"text":"Entschuldigung, wenn Sie das noch beschließen, kann ich verstehen, dass Sie eine Woche hier im Deutschen Bundestag nicht das Gegenteil beschließen wollen.","begin":847.367},{"sentiment":-0.3818,"end":861.277,"text":"Aber die Sozialdemokraten haben es mit uns schon einmal beschlossen gehabt, und plötzlich soll es angeblich europarechtswidrig oder verfassungswidrig sein.","begin":853.551},{"sentiment":-0.3612,"end":866.1,"text":"Es ist geradezu lächerlich, was Sie hier für ein Schauspiel aufführen.","begin":861.317},{"sentiment":0.1779,"end":873.322,"text":"Meine Damen und Herren, es geht auch in der Wirtschaftspolitik darum, jetzt wirklich eine grundlegende Kostkorrektur zu vollziehen.","begin":866.98},{"sentiment":0,"end":880.004,"text":"Wir haben ein Sofortprogramm vorgeschlagen, was wir darüber hinaus machen können.","begin":873.342},{"sentiment":0,"end":882.105,"text":"Ich will die drei Punkte ausdrücklich nennen.","begin":880.044},{"sentiment":0.2732,"end":887.567,"text":"Wir brauchen eine grundlegende Korrektur des Bürgergeldsystems, dieses sogenannten Bürgergeldes.","begin":882.125},{"sentiment":0,"end":890.408,"text":"Ihnen müssten eigentlich die Zahlen auch geläufig sein.","begin":887.607},{"sentiment":0,"end":902.95,"text":"Meine Damen und Herren, wir haben offene Stellen im Wir haben offene Stellen im Jahresdurchschnitt und Millionen Bürgergeldempfänger, die arbeiten könnten.","begin":890.428},{"sentiment":0,"end":905.713,"text":"Da stimmt doch etwas im System nicht.","begin":902.97},{"sentiment":0.4767,"end":909.137,"text":"Und Sie wissen es natürlich, dass da was nicht stimmt.","begin":905.753},{"sentiment":0.4767,"end":917.707,"text":"Wenn das alles gut wäre, dann müssten Ihnen die Herzen der Arbeitnehmerinnen und Arbeitnehmer in Deutschland zufliegen.","begin":910.621},{"sentiment":0,"end":919.389,"text":"Das Gegenteil ist der Fall.","begin":917.748},{"sentiment":0.0634,"end":928.857,"text":"Diejenigen, die heute anständig arbeiten, stellen sich die Frage, warum eigentlich diese SPD-Bundestagsfraktion immer noch dafür sorgt, dass nicht Arbeit besser bezahlt wird als Arbeit in Deutschland.","begin":919.409},{"sentiment":0,"end":932.561,"text":"Das ist doch die Frage, die Sie beantworten müssen.","begin":929.098},{"sentiment":0.1779,"end":940.221,"text":"Wir brauchen eine grundlegende Steuerreform, Herr Bundeskanzler.","begin":934.935},{"sentiment":0,"end":944.838,"text":"Das ist der blanke Sozialneid.","begin":941.677},{"sentiment":0,"end":949.82,"text":"Es ist der Klassenkampf wie auf Juso-Bundeskongressen, den Sie hier vorgetragen haben.","begin":944.878},{"sentiment":0.4327,"end":964.925,"text":"Wenn Sie mal genau so scharf nachrechnen würden, was Sie da vorschlagen, Herr Bundeskanzler, Sie müssten den Spitzensteuersatz auf bis zu Prozent anheben, damit Sie das bezahlen können, was Sie da für die unteren und mittleren Einkommen versprechen.","begin":949.86},{"sentiment":0.128,"end":974.334,"text":"Ich kann ja verstehen, die Hälfte von Ihnen wird möglicherweise ab der übernächsten Woche nicht mehr dabei sein.","begin":969.71},{"sentiment":0,"end":978.357,"text":"Aber müssen Sie hier denn ein solches Theater aufführen?","begin":974.354},{"sentiment":-0.4874,"end":986.503,"text":"Meine Damen und Herren, wie nervös sind Sie eigentlich in der SPD-Bundestagsfraktion, dass Sie nicht einfach mal zwei Sätze lang zuhören können?","begin":978.397},{"sentiment":0,"end":998.524,"text":"Wir brauchen eine Steuerreform, die natürlich auch die Einkommensteuer umfasst.","begin":993.403},{"sentiment":0.528,"end":1013.686,"text":"Was Sie offensichtlich bis heute nicht bereit sind, zu verstehen, ist, dass ein ganz großer Teil des Mittelstandes in Deutschland, ein ganz großer Teil des Handwerks, viele Personengesellschaften in Deutschland ihre Steuern nach der Einkommensteuer zahlen und nicht nach der Körperschaftsteuer.","begin":998.724},{"sentiment":-0.2732,"end":1022.528,"text":"Wenn Sie diesen Steuersatz anheben, ist das das sicherste Programm, um den Mittelstand in Deutschland endgültig in die Knie zu zwingen, Herr Bundeskanzler.","begin":1013.706},{"sentiment":0,"end":1026.654,"text":"Das ist das, was Sie hier heute Morgen allen Ernstes vorgetragen haben.","begin":1023.049},{"sentiment":0.5209,"end":1032.008,"text":"Wir müssen uns über das Thema Innovation unterhalten.","begin":1029.326},{"sentiment":0.7184,"end":1043.936,"text":"Unter Ihrer Führung auch das haben Sie hier großzügig unterschlagen, ist Deutschland im Kreis der europäischen Mitgliedstaaten auf den Platz zurückgefallen, was das Thema Digitalisierung betrifft.","begin":1032.028},{"sentiment":0.0772,"end":1049.379,"text":"Herr Bundeskanzler, das war keine Fortschrittskoalition, die Sie geführt haben, das war der blanke Rückschritt.","begin":1043.976},{"sentiment":-0.7153,"end":1059.006,"text":"Wir haben in einem der wichtigsten Technologiebereiche, nämlich im Bereich der Digitalisierung unseres Landes, keine Fortschritte erzielt, sondern im Vergleich zu vielen anderen Ländern der Welt dramatische Rückschritte.","begin":1049.399},{"sentiment":0.8225,"end":1071.454,"text":"Es gehört dazu, dass wir das Thema künstliche Intelligenz anpacken, dass wir auch Unternehmen fördern, die mit diesen Technologien arbeiten, Unternehmen auch ermutigen und ermuntern, das, was sie zurzeit machen.","begin":1059.246},{"sentiment":-0.2263,"end":1077.598,"text":"Sie treiben junge Leute aus dem Land und sorgen dafür, dass es kaum Unternehmensgründungen gibt, die auf Dauer in Deutschland bleiben.","begin":1071.474},{"sentiment":0,"end":1078.638,"text":"Das ist doch der Befund.","begin":1077.618},{"sentiment":0,"end":1083.882,"text":"Die gehen nach England, die gehen nach Indischweiz, die gehen nach Großbritannien, aber sie bleiben nicht in Deutschland.","begin":1078.678},{"sentiment":0.0258,"end":1091.565,"text":"Jetzt überlegen Sie mal einen kurzen Augenblick, Ein junger Unternehmer oder eine junge Gründerin hätte diese Rede von Ihnen heute Morgen gehört.","begin":1083.902},{"sentiment":0.7003,"end":1095.787,"text":"Glauben Sie im Ernst, dass die sich ermutigt fühlen, in Deutschland zu bleiben?","begin":1091.605},{"sentiment":0,"end":1103.71,"text":"Meine Damen und Herren, das ist das gegenteilige Programm von dem, was wir für junge Unternehmen in Deutschland eigentlich brauchen.","begin":1095.827},{"sentiment":0.2755,"end":1112.996,"text":"Meine Damen und Herren, das können Sie nun nicht der Opposition vorwerfen.","begin":1108.074},{"sentiment":0.2263,"end":1116.818,"text":"Aber vielleicht erlauben Sie mir, dass ich noch ein Wort zur AfD sage.","begin":1113.036},{"sentiment":0,"end":1125.763,"text":"Herr Bundeskanzler, ich habe zur AfD alles Notwendige gesagt.","begin":1116.858},{"sentiment":-0.0951,"end":1130.505,"text":"Aber wenn Sie es immer noch nicht verstanden haben, dann will ich es hier noch einmal wiederholen.","begin":1125.783},{"sentiment":0.4767,"end":1131.586,"text":"Sie wissen das natürlich.","begin":1130.525},{"sentiment":0.5994,"end":1139.595,"text":"Kolleginnen und Kollegen, es ist besser, wenn wir uns hier gemeinsam zuhören.","begin":1135.93},{"sentiment":0,"end":1142.96,"text":"Das würde uns wahrscheinlich insgesamt weiterhelfen.","begin":1139.615},{"sentiment":0,"end":1144.662,"text":"Im Moment hat Herr Merz das Wort.","begin":1143},{"sentiment":0,"end":1148.924,"text":"Ansonsten können Sie gerne Zwischenfragen stellen.","begin":1146.082},{"sentiment":0,"end":1151.385,"text":"Ich habe hier zum Thema AfD das Notwendige gesagt.","begin":1148.964},{"sentiment":-0.0951,"end":1155.248,"text":"Aber wenn Sie es immer noch nicht verstanden haben, will ich es gerne noch einmal wiederholen.","begin":1151.425},{"sentiment":0.3818,"end":1161.031,"text":"Es kommt eine Zusammenarbeit von uns mit der AfD nicht infrage.","begin":1155.288},{"sentiment":0,"end":1162.192,"text":"Es kommt nicht infrage.","begin":1161.091},{"sentiment":0,"end":1165.033,"text":"Dabei wird es natürlich auch bleiben.","begin":1162.372},{"sentiment":0.4767,"end":1169.376,"text":"Sie wissen das natürlich auch.","begin":1165.073},{"sentiment":0,"end":1170.817,"text":"Der Bundeskanzler weiß es auch.","begin":1169.396},{"sentiment":0,"end":1176.513,"text":"Herr Bundeskanzler, es ist ein Popanz, was Sie hier aufbauen.","begin":1171.912},{"sentiment":0.4767,"end":1178.974,"text":"Wissen Sie, was ein Popanz ist?","begin":1176.533},{"sentiment":-0.5106,"end":1183.615,"text":"Das ist eine Kunstfigur, mit der man versucht, Menschen Angst zu machen.","begin":1179.014},{"sentiment":0,"end":1187.176,"text":"Es ist ein Popanz, den Sie hier aufbauen.","begin":1183.655},{"sentiment":0.4767,"end":1190.356,"text":"Und Sie wissen es natürlich, dass es so ist.","begin":1187.216},{"sentiment":0,"end":1194.711,"text":"Aber eines sollten Sie vielleicht auch zur Kenntnis nehmen.","begin":1190.396},{"sentiment":-0.0772,"end":1207.75,"text":"Die schwerste Hypothek, die wir mitnehmen aus dieser Wahlperiode, ist die mögliche Tatsache, dass sich diese Fraktion mit den Wahlen am übernächsten Sonntag fast verdoppeln wird.","begin":1194.751},{"sentiment":0.7351,"end":1211.188,"text":"Ja, da mögen Sie jubeln.","begin":1208.967},{"sentiment":0,"end":1216.469,"text":"Sie haben hier mit Prozent der Stimmen angefangen.","begin":1211.208},{"sentiment":0.0762,"end":1223.031,"text":"Jetzt liegt die AfD in den Umfragen um die Herr Bundeskanzler, das liegt nicht an der Opposition.","begin":1216.509},{"sentiment":0,"end":1234.074,"text":"Das ist das Ergebnis Ihrer Regierungspolitik von SPD, Grünen und FDP, dass das so stattfinden könnte am übernächsten Sonntag.","begin":1223.071},{"sentiment":0,"end":1247.214,"text":"Das ist Ihr Ergebnis, dass diese Umfragen auf dieses Niveau angestiegen sind.","begin":1237.109},{"sentiment":0,"end":1251.535,"text":"Herr Merz, gestatten Sie keine Zwischenfrage?","begin":1247.254},{"sentiment":0,"end":1257.458,"text":"Nein.","begin":1251.595},{"sentiment":0.4588,"end":1262.96,"text":"Meine Damen und Herren, liebe Kolleginnen und Kollegen, es gibt nicht nur den Februar, es gibt auch den Februar.","begin":1257.478},{"sentiment":0,"end":1267.22,"text":"Ja, den gibt es auch.","begin":1265.639},{"sentiment":0.1779,"end":1279.684,"text":"Sie haben jetzt drei Jahre lang versucht, in Deutschland linke Politik zu machen gegen den erkennbaren Mehrheitswillen unserer Bevölkerung.","begin":1267.28},{"sentiment":0,"end":1290.462,"text":"Das können Sie, egal wie die Bundestagswahl ausgeht, ab der übernächsten Woche hier nicht mehr fortsetzen.","begin":1280.835},{"sentiment":0.4019,"end":1294.184,"text":"Wir werden möglicherweise miteinander reden müssen.","begin":1290.502},{"sentiment":0.1779,"end":1298.087,"text":"Ich will Ihnen nur eine Einschätzung für die nächste Wahlperiode geben.","begin":1294.224},{"sentiment":0.34,"end":1312.209,"text":"Meine Damen und Herren, die nächste Regierung und die nächste parlamentarische Mehrheit für eine Regierung hier im Deutschen Bundestag wird möglicherweise eine der letzten Chancen haben.","begin":1298.127},{"sentiment":0.2023,"end":1321.914,"text":"Die großen Probleme, die wir in unserem Lande gemeinsam haben darf ich noch mal auf diese Zwischenrufe.","begin":1312.229},{"sentiment":0,"end":1323.515,"text":"Ich wollte Ihnen das eigentlich ersparen.","begin":1321.934},{"sentiment":0,"end":1330.118,"text":"Aber, meine Damen und Herren, ich will das vielleicht noch mal aus dieser Wahlperiode in Erinnerung rufen.","begin":1324.595},{"sentiment":0,"end":1340.752,"text":"Sie haben in dieser Wahlperiode in den Deutschen Bundestag ich habe mir die Zahlen noch mal geben lassen ungefähr verschiedene Gesetzentwürfe eingebracht.","begin":1331.468},{"sentiment":0,"end":1342.052,"text":"Ja, ich sage es Ihnen.","begin":1341.152},{"sentiment":0.6124,"end":1351.756,"text":"Deswegen spreche ich hier und sage, wir haben von diesen Gesetzentwürfen dieser Koalition genau Gesetzentwürfen zugestimmt.","begin":1342.092},{"sentiment":0,"end":1353.936,"text":"Das ist mehr als die Hälfte gewesen.","begin":1351.796},{"sentiment":-0.3252,"end":1361.323,"text":"Den Gesetzentwürfen, den wir hier in den Deutschen Bundestag eingebracht haben, haben Sie nicht einem einzigen zugestimmt.","begin":1353.977},{"sentiment":0,"end":1362.365,"text":"Nicht einem!","begin":1361.363},{"sentiment":-0.4912,"end":1371.299,"text":"Hören Sie auf, uns hier im Deutschen Bundestag den Vorwurf zu machen, dass wir nicht bereit gewesen wären, mit Ihnen zusammenzuarbeiten!","begin":1362.425},{"sentiment":-0.3182,"end":1375.294,"text":"Von uns haben Sie alles abgelehnt.","begin":1372.532},{"sentiment":0.4215,"end":1378.436,"text":"Ihre Vorschläge haben wir mehr als zur Hälfte zugestimmt.","begin":1375.334},{"sentiment":0.4404,"end":1392.264,"text":"Eine konstruktivere Opposition werden Sie nicht noch einmal finden als die, die wir in den letzten drei Jahren Ihrer Politik gegenüber waren, obwohl wir viele Dinge einfach nicht geteilt haben von dem, was Sie hier vorgetragen haben.","begin":1378.476},{"sentiment":0,"end":1395.506,"text":"Aber, meine Damen und Herren, ich sage es noch mal zum Abschluss.","begin":1392.304},{"sentiment":0.1779,"end":1400.689,"text":"Wir werden in der nächsten Wahlperiode eine Regierung brauchen und eine parlamentarische Mehrheit.","begin":1395.546},{"sentiment":0.6486,"end":1413.248,"text":"die es ermöglicht, den großen Herausforderungen unseres Landes wirklich zu begegnen in der Migrationspolitik, in der Wirtschaftspolitik und in der Innenpolitik.","begin":1402.401},{"sentiment":-0.357,"end":1420.413,"text":"Wenn das nicht gelingt, liebe Kolleginnen und Kollegen, dann werden wir nicht mehr nur mit Prozent Rechtspopulismus zu tun haben.","begin":1413.288},{"sentiment":-0.2755,"end":1427.897,"text":"Dann werden eines Tages die Rechtspopulisten nicht nur eine Sperrminorität hier im Bundestag haben, die keine Verfassungsänderungen mehr ermöglicht.","begin":1420.433},{"sentiment":0.2732,"end":1430.739,"text":"Dann werden sie möglicherweise in die Nähe der Mehrheit kommen.","begin":1427.917},{"sentiment":-0.4427,"end":1464.931,"text":"Diese Verantwortung Widerspruch bei der AfD nicht noch stärker werden, sondern dann sollten wir in der breiten politischen Mitte unseres Parlaments in der Lage sein, die Probleme unseres Landes zu lösen und die Probleme dieses Landes wirklich so zu lösen, dass der Populismus in unserem Land, sei er von links oder sei er von rechts, nicht noch stärker wird.","begin":1430.779},{"sentiment":0.4471,"end":1471.957,"text":"Das ist eine Verantwortung, der können Sie sich nicht entziehen, und der werden wir uns auch nicht entziehen, meine Damen und Herren.","begin":1464.971},{"sentiment":0,"end":1474.819,"text":"Vor der Aufgabe stehen wir spätestens in der übernächsten Woche.","begin":1471.977},{"begin":1510.187,"end":1515.296,"text":"Als Nächster hat das Wort für die Bundesregierung der Bundesminister für Wirtschaft und Klimaschutz, Dr."},{"begin":1515.437,"end":1515.958,"text":"Robert Habeck."}];
+                        console.log(segments);
+
+                        // update subtitle while displaying videos
+                        video.addEventListener('timeupdate', () => {
+                            const currentTime = video.currentTime;
+                            const segment = segments.find(s => currentTime >= s.begin && currentTime <= s.end);
+
+                            if (segment) {
+                                subtitle.innerText = segment.text; // Show current subtitle
+
+                                let sentiment = segment.sentiment ?? 0.0; // 0.0 as default sentiment
+                                console.log("sentiment: ", sentiment);
+
+                               let red = 255, green = 255, blue = 255; // white
+
+                                if (sentiment >= 0) {
+                                    green = 255;
+                                    red = Math.round(255 * (1 - sentiment)) || 0;
+                                    blue = Math.round(255 * (1 - sentiment)) || 0;
+                                } else {
+                                    red = 255;
+                                    green = Math.round(255 * (sentiment + 1)) || 0;
+                                    blue = Math.round(255 * (sentiment + 1)) || 0;
+                                }
+
+                                console.log("red:",red);
+                                // apply color in background
+                                subtitle.style.backgroundColor = "rgb("+red+", "+green+", "+blue+")";
+
+
+
+
+                            } else {
+                                subtitle.innerText = "..."; // Show "..." if no matched text
+                                subtitle.style.backgroundColor = "white";
+
+                            }
+                        });
+                    </script>
+
+
+
+            </div>
+
+            <a href= "#verzeichnis"> back to table of contents </a><hr>
+
+</div>
+
+<div>
+    <a href="/profiles/Friedrich_Merz?page=9&size=4"
+       >Previous Page</a>
+    <a href="/profiles/Friedrich_Merz?page=11&size=4">Next Page</a>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+        function updateTextDisplay() {
+            document.querySelectorAll("[id^='textDisplay-']").forEach((pTag, index) => {
+                const textOriginal = pTag.getAttribute("data-original");
+                const textNE = pTag.getAttribute("data-ne");
+                const textPOS = pTag.getAttribute("data-pos");
+
+                if (toggleNE.checked) {
+                    togglePOS.checked = false; // Choose either NE or POS
+                    pTag.innerHTML = textNE + pTag.querySelector("img").outerHTML;
+
+                }
+                 else if (togglePOS.checked) {
+                    toggleNE.checked = false;
+                    pTag.innerHTML = textPOS + pTag.querySelector("img").outerHTML;
+                } else {
+                    pTag.innerHTML = textOriginal + pTag.querySelector("img").outerHTML;
+                }
+            });
+        }
+
+        const toggleNE = document.getElementById("toggleNE");
+        const togglePOS = document.getElementById("togglePOS");
+
+        toggleNE.addEventListener("change", function(){
+           if (toggleNE.checked) {
+                // When the NE checkbox is checked, unchecks the POS checkbox automatically
+                togglePOS.checked = false;
+            }
+            updateTextDisplay();
+        });
+        togglePOS.addEventListener("change", function(){
+          if (togglePOS.checked) {
+               // When the POS checkbox is checked, unchecks the NE checkbox automatically
+               toggleNE.checked = false;
+           }
+            updateTextDisplay();
+        });
+    });
+
+</script>
+
+
+
+
+</body>
+</html>

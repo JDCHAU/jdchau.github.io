@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang = "zh">
+<head>
+  <meta charset = "UTF-8" />
+  <title> Vorstellung </title>
+  <style>
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body{
+    font-family: "Arial", "Helvetica", san-serif;
+    color: #fff;
+    line-height: 1.6;
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+    
+  }
+
+  body::before {
+    content: "";
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:url("images/bundestag.jpg") no-repeat center center;
+    background-size: cover;
+    opacity: 0.4;  /* transparent*/
+    z-index: -1
+    
+  }
+  
+  .container{
+    width:90%;
+    max-width:1200px;
+    margin: 0 auto;
+    padding: 2rem 0;
+    
+  }
+  
+  header{
+    text-align: center;
+    margin-bottom:2rem;
+    animation: fadeInDown 1s ease forwards;
+  }
+  
+  header h1{
+    font-size: 3rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    color: #0b3d91;
+  }
+
+
+
+  header p {
+    font-size: 1.2rem;
+    opacity: 0.85;
+  
+  }
+  
+  main{
+    background-color: rgba(0,0,0,0.6);
+    padding: 2rem;
+    border-radius : 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    animation: fadeInUp 1s ease forwards;
+  
+  }
+  
+  main h2{
+    font-size:2rem;
+    margin-bottom:1rem;
+    color: #0b3d91;
+
+}
+  main p{
+    margin-bottom: 1.2rem;
+  
+  }
+  
+  .btn{
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    margin-top: 1rem;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius:4px;
+    background-color: #0b3d91;
+    color: #ffffff;
+    transition: all 0.2s ease-in-out;
+  
+  }
+  
+  .btn:hover{
+    background-color: #0a357f;
+    transform: translateY(-3px);
+    
+  }
+  
+  .info-block{
+    margin-top:2rem;
+  
+  }
+  
+  footer{
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    font-size:0.9rem;
+    opacity: 0.8;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.5s;
+  
+  }
+  
+  @keyframes fadeInDown{
+    0%{opacity: 0; transform: translateY(-30px);}
+    100%{opacity: 1; transform: translateY(0);}
+  }
+  
+    @keyframes fadeInUp{
+    0%{opacity: 0; transform: translateY(30px);}
+    100%{opacity: 1; transform: translateY(0);}
+  }
+  
+</style>
+</head>
+<body>
+<div class = "container">
+<header> 
+    <h1>Multimodal Parliament Explorer</h1>
+
+</header>
+
+<main>
+<section>
+<h2>Deutscher Bundestag</h2>
+<p>Der Deutsche Bundestag ist die gewählte Volksvertretung sowie als Parlament das gesetzgebende Organ der Bundesrepublik Deutschland. Der Deutsche Bundestag hat seinen Sitz in Berlin. Im politischen System Deutschlands wird der Deutsche Bundestag als einziges Verfassungsorgan des Bundes unmittelbar vom Staatsvolk der deutschen Staatsbürger gewählt.</p>
+
+</section>
+
+<section class = "info-block">
+<h2>Vision</h2>
+<p>Dieses Projekt bietet Ihnen einen umfassenden Überblick über die Reden des Bundestages.</p>
+
+
+<a href = "navi.html" class = "btn">Load More</a>
+</section>
+</main>
+
+<footer>
+<p>© 2025 Multimodal Parliament Explorer(Min Li, Xinyu Zhao, Jiadong Zhou) -Alle Rechte vorbehalten.</p>
+<p>Bild aus https://www.demokratie-geschichte.de/karte/2138</p>
+</footer>
+</div>
+
+</body>
+</html>
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

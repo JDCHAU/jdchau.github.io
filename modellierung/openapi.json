@@ -1,0 +1,113 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "Javalin OpenAPI browser",
+    "version" : ""
+  },
+  "paths" : {
+    "/" : {
+      "get" : {
+        "tags" : [ "Overview" ],
+        "summary" : "Get overview of speakers grouped by party",
+        "operationId" : "getOverview",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated" : false,
+        "security" : [ ]
+      }
+    },
+    "/nlp-analysis" : {
+      "get" : {
+        "tags" : [ "Speech" ],
+        "summary" : "Get nlp analysis of one speaker's speeches",
+        "operationId" : "getNLPAnalysis",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Error: Server Error"
+          }
+        },
+        "deprecated" : false,
+        "security" : [ ]
+      }
+    },
+    "/profiles/{name}" : {
+      "get" : {
+        "tags" : [ "Speaker Profile" ],
+        "summary" : "Get profile of speaker",
+        "operationId" : "getPersonalProfile",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Error: Server Error"
+          }
+        },
+        "deprecated" : false,
+        "security" : [ ]
+      }
+    },
+    "/text-suche" : {
+      "get" : {
+        "tags" : [ "Speech" ],
+        "summary" : "Find matched speeches",
+        "operationId" : "textsuche",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Error: Not Found"
+          }
+
+        },
+        "deprecated" : false,
+        "security" : [ ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : { },
+    "securitySchemes" : { }
+  },
+  "servers" : [ ],
+  "security" : null
+}

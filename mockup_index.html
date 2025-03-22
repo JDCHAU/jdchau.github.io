@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src = "/jquery-3.7.1.js"></script>
+    <script src = "/index.js"> </script>
+    <title> Einstiegsseite </title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+
+        }
+
+        body{
+            background-color: #f5f5f5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+        header{
+            width: 100%;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+
+        }
+        .header-content{
+            max-width:1100px;
+            margin: 0 auto ;
+            padding: 10px;
+            position: relative;
+
+        }
+        .flag-stripes{
+            display: flex;
+            height: 8px;
+            margin-bottom: 10px;
+
+        }
+
+       .flag-black{background-color: #000; width: 33.33%;}
+        .flag-red{background-color: #d00; width: 33.33%;}
+        .flag-gold{background-color: #ffce00; width: 33.34%;}
+
+       h1.site-title{
+            font-size: 1.8rem;
+            color: #333;
+            text-align: left;
+       }
+
+        .search-container{
+            display: flex;
+            justify-content: center;
+            margin: 20px auto;
+            max-width: 600px;
+
+        }
+        #search-bar{
+            width: 70%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 3px 0 0 3px;
+            outline: none;
+        }
+
+        button#button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #007aff;
+            color: white;
+            border: none;
+            border-radius: 0 3px 3px 0;
+            cursor: pointer;
+
+        }
+
+        button#button:hover{
+            background-color: #005bb5;
+        }
+
+        main{
+            width:100%;
+            max-width: 1100px;
+            margin: 0 auto 40px auto;
+            padding: 0 20px;
+
+        }
+
+        .nav-link{
+            display: inline-block;
+            color: #007aff;
+            text-decoration: none;
+            font-size: 1rem;
+            margin: 8px 0;
+            transition: all 0.2s ease;
+
+        }
+
+        .nav-link:hover{
+            text-decoration: underline;
+        }
+        .party{
+            margin-bottom: 30px;
+        }
+        .party h2{
+            font-size:1.2rem;
+            margin: 20px 0 10px;
+            color: #007aff;
+            cursor: pointer;
+
+        }
+/*        .members{display: none;}*/
+        .members h3{
+            margin: 10px 0;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+
+        }
+
+        .members h3 a {
+            color: #007aff;
+            text-decoration: none;
+
+        }
+
+        .members h3 a:hover {
+                    text-decoration: underline;
+                }
+
+        hr{
+            border: 0;
+            border-top: 1px solid #ddd;
+            margin: 15px 0;
+
+        }
+
+
+        footer{
+            width: 100%;
+            background:#f0f0f0;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: auto;
+
+        }
+
+        footer p{
+            font-size:0.9rem;
+            color: #666;
+
+        }
+
+        @media(max-width: 600px){
+            #search-bar{
+                width: 60%;
+            }
+            button#button{
+                width: 40%
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div class = "header-content">
+    <div class = "flag-stripes">
+        <div class = "flag-black"></div>
+        <div class = "flag-red"></div>
+        <div class = "flag-gold"></div>
+    </div>
+    <h1 class = "site-title">Parliament Explorer</h1>
+
+</header>
+
+
+<div class = "search-container" id = "search-container">
+    <input type = "text" id = "search-bar" placeholder = "Abgeordnete-Suche">
+    <button id = "button" onclick = "searchFilter()">Search</button>
+</div>
+
+
+<main>
+    <div class = "verzeichnis" id = "verzeichnis">
+        <h1> Einstiegsseite </h1>
+
+
+        <div class = "party">
+            <hr>
+            <h2 class = "party-heading">AfD</h2>
+            <div class = "members">
+                Abgeordenete Placeholder
+            </div>
+        <div class = "party">
+            <hr>
+            <h2 class = "party-heading">BSW</h2>
+            <div class = "members">
+                Abgeordenete Placeholder
+            </div>
+        <div class = "party">
+            <hr>
+            <h2 class = "party-heading">BÜNDNIS 90/DIE GRÜNEN</h2>
+            <div class = "members">
+                Abgeordenete Placeholder
+            </div>
+        <div class = "party">
+            <hr>
+            <h2 class = "party-heading">CDU</h2>
+            <div class = "members">
+               Abgeordenete Placeholder
+            </div>
+        <div class = "party">
+            <hr>
+            <h2 class = "party-heading">CSU</h2>
+            <div class = "members">
+               Abgeordenete Placeholder
+            </div>
+        <div class = "party">
+            <hr>
+            <h2 class = "party-heading">DIE LINKE.</h2>
+            <div class = "members">
+                Abgeordenete Placeholder
+            </div>
+        <div class = "party">
+            <hr>
+            <h2 class = "party-heading">FDP</h2>
+            <div class = "members">
+                Abgeordenete Placeholder
+            </div>
+        <div class = "party">
+            <hr>
+            <h2 class = "party-heading">Plos</h2>
+            <div class = "members">
+                Abgeordenete Placeholder
+            </div>
+        <div class = "party">
+            <hr>
+            <h2 class = "party-heading">SPD</h2>
+            <div class = "members">
+                Abgeordenete Placeholder
+            </div>
+        <div class = "party">
+            <hr>
+            <h2 class = "party-heading">SSW</h2>
+            <div class = "members">
+                Abgeordenete Placeholder
+            </div>
+        </div>
+    </div>
+
+    <form class = "search-container"  action="/textsuche" method="get">
+        <input type="text"  name="search" placeholder="Speech-Suche">
+        <button id = "button" type="submit">Search Speech</button>
+    </form>
+
+</main>
+
+
+<footer>
+    <p>&copy; 2025 Multimodal Parliament Explorer(Min Li, Xinyu Zhao, Jiadong Zhou) -Alle Rechte vorbehalten.</p>
+</footer>
+
+
+</body>
+</html>

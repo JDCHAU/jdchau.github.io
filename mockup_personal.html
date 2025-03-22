@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src = "/jquery-3.7.1.js"></script>
+    <script src = "/personal.js"></script>
+    <title>mockup_personal</title>
+
+    <style>
+        .comment{ color: grey; font-style: italic;}
+        .portrait{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        border: 1px solid #ccc;
+        padding:10px;
+        overflow:hidden;
+        }
+        .inbox{text-align:center; line-height:100px;}
+        img{
+        max-width: 100%;
+        height: auto;
+        }
+
+        .ne-per { background-color: lightblue; padding: 2px; border-radius: 4px; }
+        .ne-loc { background-color: lightgreen; padding: 2px; border-radius: 4px; }
+        .ne-org { background-color: lightcoral; padding: 2px; border-radius: 4px; }
+        .ne-misc { background-color: DarkKhaki; padding: 2px; border-radius: 4px; }
+
+        .pos-nn { background-color: yellow; padding: 2px; border-radius: 4px; }
+        .pos-vb { background-color: orange; padding: 2px; border-radius: 4px; }
+        .pos-appr { background-color: pink; padding: 2px; border-radius: 4px; }
+        .pos-art { background-color: red; padding: 2px; border-radius: 4px; }
+
+        .pos-adjd { background-color: DodgerBlue; padding: 2px; border-radius: 4px; }
+        .pos-adja { background-color: green; padding: 2px; border-radius: 4px; }
+        .pos-pper { background-color: violet; padding: 2px; border-radius: 4px; }
+        .pos-adv { background-color: grey; padding: 2px; border-radius: 4px; }
+
+
+        .legend {
+            margin: 10px 0;
+            padding: 5px;
+            display: flex;
+            gap: 10px;
+            border: 1px solid #000;
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+<div class = "portrait">
+        <h1> Portrait: Protrait Placeholder</h1>
+        </br>
+        <p> ID: xxxxxxxx</br>
+Max Mustermann
+, männlich</br>
+Geburtsdatum: xx.xx.xxxx </br> 
+Geburtsort : Deutschland </br>
+Beruf: TBD</br>
+Partei: TBD</br>
+Religion: TBD</br>
+WP von 19 bis 20</br> </p>
+
+
+</div>
+
+
+    <h2><a href = "/">Go To Homepage</a></h2>
+    <div class = "verzeichnis" id = "verzeichnis">
+        <h1> Table of speeches </h1>
+
+
+       <form id="speechForm" action="/nlp-analysis" method="GET" onsubmit="checkSelections()">
+           <ul>
+
+                <li>
+                <input type="checkbox" name="speechIDs" value="ID2020705000">
+                <input type="hidden" name="speakerName" value="Albrecht_Glaser">
+
+                <a href="#ID2020705000">Rede ID:ID2020705000, Datum: 19.12.2024</a>
+                </li>
+                <li>
+                <input type="checkbox" name="speechIDs" value="ID201201400">
+                <input type="hidden" name="speakerName" value="Albrecht_Glaser">
+
+                <a href="#ID201201400">Rede ID:ID201201400, Datum: 14.01.2022</a>
+                </li>
+                <li>
+                <input type="checkbox" name="speechIDs" value="ID201404200">
+                <input type="hidden" name="speakerName" value="Albrecht_Glaser">
+
+                <a href="#ID201404200">Rede ID:ID201404200, Datum: 27.01.2022</a>
+                </li>
+                <li>
+                <input type="checkbox" name="speechIDs" value="ID201504500">
+                <input type="hidden" name="speakerName" value="Albrecht_Glaser">
+
+                <a href="#ID201504500">Rede ID:ID201504500, Datum: 28.01.2022</a>
+                </li>
+
+            <br>
+
+            <div>
+                <a href="/profiles/Albrecht_Glaser?page=0&size=4"
+                   style="display:none">Previous Page</a>
+                <a href="/profiles/Albrecht_Glaser?page=2&size=4">Next Page</a>
+            </div>
+
+           </ul>
+               <label for="topic">Topic:</label>
+               <select name="topic" id="topic">
+                   <option value="none">  </option>
+                   <option value="Social">Social </option>
+                   <option value="Foreign">Foreign</option>
+                   <option value="Law">Law</option>
+                   <option value="Government">Government </option>
+                   <option value="Health">Health</option>
+                   <option value="Transportation">Transportation</option>
+                   <option value="Public">Public</option>
+                   <option value="Labor">Labor</option>
+                   <option value="Housing">Housing</option>
+                   <option value="Defense">Defense</option>
+                   <option value="Civil">Civil</option>
+                   <option value="Energy Technology">Energy</option>
+                   <option value="Technology">Technology </option>
+                   <option value="Education">Education</option>
+                   <option value="Domestic">Domestic</option>
+                   <option value="Immigration">Immigration</option>
+                   <option value="Environment">Environment </option>
+                   <option value="Agriculture">Agriculture</option>
+                   <option value="Macroeconomics">Macroeconomics</option>
+                   <option value="Culture">Culture</option>
+                   <option value="International">International</option>
+               </select>
+
+               <button type="submit">NLP analyse</button>
+           </form>
+
+       <script>
+            const speechWithTopicScore = {"ID2020705000":{"Social":1.544707016524626,"Foreign":0.029651333833953686,"Law":0.6512285224125662,"Government":8.769731305714231,"Health":0.053134013256567414,"Transportation":0.09302988826584624,"Public":0.030550697458238574,"Labor":0.1417095090064322,"Housing":0.09271453473411384,"Defense":0.11396857484942302,"Civil":1.8943574156255636,"Energy":0.04386216782677366,"Technology":0.04009206894716044,"Education":0.04564629209926352,"Domestic":3.138908546825405,"Immigration":0.11528280129095947,"Environment":0.12050900964641187,"Agriculture":0.02197325260931393,"Macroeconomics":9.80661811990285,"Culture":0.08215072009352298,"International":0.17017410105654562},"ID201504500":{"Social":0.05863981410220731,"Foreign":0.008029123867800081,"Law":0.07617177993779478,"Government":3.271131455898285,"Health":0.022498995061141613,"Transportation":0.025569765391992405,"Public":0.008767410839936929,"Housing":0.02261070401436882,"Labor":0.015965571896231268,"Defense":0.021665894289981225,"Civil":0.12929480466846144,"Energy":0.012523627176051377,"Technology":0.012268093032616889,"Education":0.014754215481843858,"Domestic":0.060548070490767714,"Immigration":0.03577621165823075,"Environment":0.04068001228006324,"Agriculture":0.005707116213670815,"Macroeconomics":0.07145987411422539,"Culture":0.028938416270648304,"International":0.056999180756974965},"ID201404200":{"Social":0.7110727113904431,"Foreign":0.01859726946167939,"Law":0.2731206849166483,"Government":9.828386361245066,"Health":0.05806226248751045,"Transportation":0.06774119269903167,"Public":0.021392995753558353,"Labor":0.04609739397710655,"Housing":0.05094784207176417,"Defense":0.07394868886331096,"Civil":0.991510811723856,"Energy":0.030322738146423944,"Technology":0.037709210726461606,"Education":0.030634771272161743,"Domestic":0.13195430725318147,"Immigration":0.05879074824770214,"Environment":0.0748606319175451,"Agriculture":0.028360721482385998,"Macroeconomics":6.291027554310858,"Culture":0.05510208669147687,"International":0.12035869380270015},"ID201201400":{"Social":2.730785390431265,"Foreign":0.055010357949413446,"Law":0.49130642234013067,"Government":13.118550326187687,"Health":0.8494892902881475,"Transportation":0.17066708783022477,"Public":0.05694188427150948,"Housing":0.15207711985567585,"Labor":0.2087835929414723,"Defense":0.13402027721986087,"Civil":1.752349740738282,"Energy":0.07691195501683978,"Technology":1.1099250700544872,"Education":0.12157085482704133,"Domestic":1.3654615207806273,"Immigration":0.22046878690071026,"Environment":0.28281104920824873,"Agriculture":0.11310353051339916,"Macroeconomics":9.60070225040181,"Culture":0.20152214937570534,"International":3.1875418229883508}};
+
+            console.log(speechWithTopicScore)
+
+           function checkSelections() {
+               const checkboxes = document.querySelectorAll('input[name="speechIDs"]');
+                const selectedTopic = document.querySelector('#topic').value;  // Get selected topic
+
+                let anySelected = false; // To check later if users select any speech
+
+                // Empty all selections before next selection
+                if(selectedTopic !== "none"){
+                    checkboxes.forEach(cb => cb.checked = false);
+                }
+
+                // Check if speech exists and the speech has selected topic with scores greater than 1.0
+                if (selectedTopic === "none"){
+                    // If "none" is selected, then do not filter topics
+                    checkboxes.forEach(cb => {
+                        // If the checkbox is already checked, mark it as selected
+                        if (cb.checked) {
+                            anySelected = true;
+                        }
+                    });
+                }
+                 else{
+                    checkboxes.forEach(cb => {
+                        const speechID = cb.value;
+                         if(speechWithTopicScore[speechID] && speechWithTopicScore[speechID][selectedTopic] > 1 && speechWithTopicScore[speechID][selectedTopic] !== undefined) {
+                            cb.checked = true;
+                            anySelected = true;
+                        }
+                    });
+
+                }
+               if (!anySelected) {
+                   // If nothing were selected, select all as default
+                   checkboxes.forEach(cb => cb.checked = true);
+               }
+
+           }
+       </script>
+       </div>
+
+<br>
+
+
+<div class="legend">
+    <span class="ne-per">Person</span>
+    <span class="ne-loc">Location</span>
+    <span class="ne-org">Organization</span>
+    <span class="ne-misc">Miscellaneous</span>
+
+    <span class="pos-nn">Noun</span>
+    <span class="pos-vb">Verb</span>
+    <span class="pos-appr">Präposition</span>
+    <span class="pos-art">Artikel</span>
+    <span class="pos-adjd">Adjektiv (dativ)</span>
+    <span class="pos-adja">Adjektiv (attributiv)</span>
+    <span class="pos-pper">Personalpronomen</span>
+    <span class="pos-adv">Adverb</span>
+</div>
+
+<label>
+    <input type="checkbox" id="toggleNE" > Show Named Entities
+</label>
+<label>
+    <input type="checkbox" id="togglePOS" > Show POS Tags
+</label>
+
+<br>
+
+
+<div id="speechContainer">
+
+            <div class = "content" id = "IDXXXXXXXXXXX">
+
+                <h2>Speech: IDXXXXXXXXXX</h2>
+                    <h2>--Contents--</h2>
+                    TBD, ICON Placeholder
+                <div class = "comment">    
+                    <h2>--Comments--</h2>
+                    TBD
+                </div>
+</div>
+
+<div>
+    <a href="/profiles/Albrecht_Glaser?page=0&size=4"
+       style="display:none">Previous Page</a>
+    <a href="/profiles/Albrecht_Glaser?page=2&size=4">Next Page</a>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+        function updateTextDisplay() {
+            document.querySelectorAll("[id^='textDisplay-']").forEach((pTag, index) => {
+                const textOriginal = pTag.getAttribute("data-original");
+                const textNE = pTag.getAttribute("data-ne");
+                const textPOS = pTag.getAttribute("data-pos");
+
+                if (toggleNE.checked) {
+                    togglePOS.checked = false; // Choose either NE or POS
+                    pTag.innerHTML = textNE + pTag.querySelector("img").outerHTML;
+
+                }
+                 else if (togglePOS.checked) {
+                    toggleNE.checked = false;
+                    pTag.innerHTML = textPOS + pTag.querySelector("img").outerHTML;
+                } else {
+                    pTag.innerHTML = textOriginal + pTag.querySelector("img").outerHTML;
+                }
+            });
+        }
+
+        const toggleNE = document.getElementById("toggleNE");
+        const togglePOS = document.getElementById("togglePOS");
+
+        toggleNE.addEventListener("change", function(){
+           if (toggleNE.checked) {
+                // When the NE checkbox is checked, unchecks the POS checkbox automatically
+                togglePOS.checked = false;
+            }
+            updateTextDisplay();
+        });
+        togglePOS.addEventListener("change", function(){
+          if (togglePOS.checked) {
+               // When the POS checkbox is checked, unchecks the NE checkbox automatically
+               toggleNE.checked = false;
+           }
+            updateTextDisplay();
+        });
+    });
+
+</script>
+
+
+
+
+</body>
+</html>

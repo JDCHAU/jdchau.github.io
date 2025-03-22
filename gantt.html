@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    <pre class="mermaid">
+  
+gantt
+    title Gantt Diagramm von Abschlussprojekt (L: Li Min, X:Xinyu Zhao, J: Jiadong Zhou)
+    dateFormat  YYYY-MM-DD
+
+    section Planung
+    Task verteilen(L, X, J):done,a1, 2025-02-18, 1d
+    Code reuse (L,J): done, a2, after a1, 6d
+    Tech-Stack(L, X, J): done, a3  ,2025-02-20, 1d
+    modellieren(L, X, J): done, a4,2025-02-20, 0.5d
+    Mock-up(L,X,J): done, a5, after a4, 1d
+
+    section Backend
+    datastructure(J): done,b0,2025-02-22, 0.5d
+    crawl photo(J):done,b1,2025-02-23, 0.5d
+    crawl and filter speaker's list(J): done, b2, 2025-02-23, 0.5d
+    write in db(J): done, b3, 2025-02-23, 0.5d
+    auto-download(J) : done, b4, 2025-02-24, 0.5d
+    renew RestHandler(L): done, b5, 2025-02-25, 1d
+    ffmpeg config and test(J): done, b6,2025-03-08,1d
+    video download and convert low profile(J):done,b7,2025-03-09,1d
+    fix db search(J):done,b8,2025-03-10,1d
+    data automatism loaded(J):milestone,done, b9,2025-03-11,1d
+    section Frontend
+    einstiegsseite(L) : done, c1, 2025-02-24,1d
+    renew FrontendHelper(L):done, c2,2025-02-25,0.5d
+    decorate website(L): done,c3,2025-02-25,0.5d
+    optimize operational logic(L): done, c4,2025-02-26,1d
+    display nlp analysis(L): done, c5,2025-02-27,1d
+    usr can select nlp info on demand(L): done, c6,2025-02-28,1d
+    renew FrontendHelper and template(L):done, c7,2025-03-01,1d
+    speeches filtered by topic(L): done, c8,2025-03-01,1d 
+    add sentiment icon(L): done,done, c9,2025-03-02,1d
+    speeches without nlp not shown(L): done, c10,2025-03-04,1d
+    fix bugs(L): done,c11,2025-03-07,1d
+    add speeches pagination(L): done,c12,2025-03-08,1d
+    openapi(L): done,c13,2025-03-09, 0.5d
+    swagger doc(L):done,c14,2025-03-09, 0.5d
+    full-text search(L):done,c15,2025-03-10,1d
+    video added(L):milestone,done,c16,2025-03-11,1d 
+   
+    section NLP
+    component(J) : done,d1, 2025-02-23, 0.5d
+    nlp data stucture(J):done, d2, 2025-02-23, 0.5d
+    XMIReader(J): done,d3, 2025-02-24, 0.5d
+    XMIWriter(J): done,d4, 2025-02-24, 0.5d
+    typesystem loader(J): done, d5, 2025-02-25,0.5d
+    video whisperx(J):done, d6,2025-03-07,1d
+    video tokenized(J):done, d7,2025-03-08,1d
+    token2sentence(J): done, d8,2025-03-09,1d
+    section PDF
+    PDFGenetator(X): done,p1,2025-03-11, 5d
+    XMIGenerator(X): done,p2,2025-03-16, 5d
+    section Test
+    version 0.1(L,X,J) : milestone,done,e1, 2025-03-11, 1d
+    version 0.2(L,X,J) : milestone,done,e2, 2025-03-21, 1d
+    hotfix(L,X,J): milestone,done,e2, 2025-03-22, 1d
+    version 1.0(L,X,J) : milestone,done,e3, 2025-03-23, 1d
+
+    </pre>
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    </script>
+  </body>
+</html>

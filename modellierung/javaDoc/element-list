@@ -1,0 +1,24 @@
+unnamed package
+aufgabe2
+aufgabe2_nlp
+aufgabe3.teil3_1
+aufgabe3.teil3_2
+controller.rest
+controller.sync
+model.crawl
+model.data
+model.data.mongodb
+model.dataloader
+model.db
+model.exceptions
+model.factory
+model.nlp
+model.nlp.io
+model.nlp.text
+model.nlp.video
+model.utils.classifier
+model.utils.frontendhelper
+model.utils.jsonparser
+model.utils.pathhelper
+model.utils.xmlparser
+view
